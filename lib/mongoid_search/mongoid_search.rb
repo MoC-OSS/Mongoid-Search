@@ -80,7 +80,7 @@ module Mongoid::Search
 
       def search_without_relevance(query, options)
         p options[:screening]
-        p Util.normalize_keywords(query,options[:screening]
+        p Util.normalize_keywords(query,options[:screening])
         query(Util.normalize_keywords(query,options[:screening]), options)
       end
 
