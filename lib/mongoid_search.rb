@@ -10,6 +10,10 @@ module Mongoid::Search
   mattr_accessor :match
   @@match = :any
 
+  ## Default screening type. screening :true or :false searched keywords
+  mattr_accessor :screening
+  @@screening = :flase
+
   ## If true, an empty search will return all objects
   mattr_accessor :allow_empty_search
   @@allow_empty_search = false
