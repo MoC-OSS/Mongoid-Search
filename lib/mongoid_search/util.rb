@@ -37,7 +37,8 @@ module Mongoid::Search::Util
 
     return [] if text.blank?
     if screening
-            text = text.to_s.
+      p "screening true"
+      text = text.to_s.
         mb_chars.
         normalize(:kd).
         downcase.
@@ -50,6 +51,7 @@ module Mongoid::Search::Util
       text = text.map(&stem_proc) if stem_keywords
       text
     else
+      p "screening false"
       text = text.to_s.
         mb_chars.
         normalize(:kd).

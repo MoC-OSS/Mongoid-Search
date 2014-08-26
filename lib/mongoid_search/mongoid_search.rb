@@ -25,6 +25,8 @@ module Mongoid::Search
     end
 
     def full_text_search(query, options={})
+      p "!!!!!!!!!!"
+      p options
       options = extract_options(options)
       return (options[:allow_empty_search] ? criteria.all : []) if query.blank?
 
@@ -74,6 +76,9 @@ module Mongoid::Search
       end
 
       def search_without_relevance(query, options)
+        p "!!!!DDD!!!"
+        p options
+        p options[:screening]
         query(Util.normalize_keywords(query,options[:screening]), options)
       end
 
