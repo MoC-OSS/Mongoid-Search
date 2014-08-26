@@ -28,6 +28,8 @@ module Mongoid::Search
       p "!!!!!!!!!!"
       p options
       options = extract_options(options)
+      p "s!!!!!!sdd1!!"
+      p options
       return (options[:allow_empty_search] ? criteria.all : []) if query.blank?
 
       if options[:relevant_search]
@@ -77,13 +79,12 @@ module Mongoid::Search
       end
 
       def search_without_relevance(query, options)
-        p "options[:screening]"
+        p options[:screening]
         query(Util.normalize_keywords(query,options[:screening]), options)
       end
 
       def search_relevant(query, options)
         results_with_relevance(query, options).sort { |o| o['value'] }.map do |r|
-
           new(r['_id'].merge(:relevance => r['value'])) do |o|
             # Need to match the actual object
             o.instance_variable_set('@new_record', false)

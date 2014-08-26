@@ -43,7 +43,6 @@ module Mongoid::Search::Util
         normalize(:kd).
         downcase.
         to_s.
-        gsub(/[^\s\p{Alnum}]/,'').   # strip accents
         gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
         split(' ').
         reject { |word| word.size < Mongoid::Search.minimum_word_size }
