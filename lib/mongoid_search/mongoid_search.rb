@@ -71,7 +71,9 @@ module Mongoid::Search
         {
           :match              => options[:match]              || Mongoid::Search.match,
           :allow_empty_search => options[:allow_empty_search] || Mongoid::Search.allow_empty_search,
-          :relevant_search    => options[:relevant_search]    || Mongoid::Search.relevant_search
+          :relevant_search    => options[:relevant_search]    || Mongoid::Search.
+          :screening          => options[:screening]        
+
         }
       end
 
