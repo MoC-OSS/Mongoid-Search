@@ -74,7 +74,7 @@ module Mongoid::Search
       end
 
       def search_without_relevance(query, options)
-        query(Util.normalize_keywords(query), options)
+        query(Util.normalize_keywords(query,options[:screening]), options)
       end
 
       def search_relevant(query, options)
@@ -90,7 +90,7 @@ module Mongoid::Search
       end
 
       def results_with_relevance(query, options)
-        keywords = Mongoid::Search::Util.normalize_keywords(query)
+        keywords = Mongoid::Search::Util.normalize_keywords(query,options[:screening])
 
         map = %Q{
           function() {
