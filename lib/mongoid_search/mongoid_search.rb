@@ -69,17 +69,14 @@ module Mongoid::Search
 
       def extract_options(options)
         {
-          :screening          => options[:screening]          || Mongoid::Search.screening,
           :match              => options[:match]              || Mongoid::Search.match,
           :allow_empty_search => options[:allow_empty_search] || Mongoid::Search.allow_empty_search,
-          :relevant_search    => options[:relevant_search]    || Mongoid::Search.
+          :relevant_search    => options[:relevant_search]    || Mongoid::Search.relevant_search
         }
       end
 
       def search_without_relevance(query, options)
-        p "!!!!DDD!!!"
-        p options
-        p options[:screening]
+        p "options[:screening]"
         query(Util.normalize_keywords(query,options[:screening]), options)
       end
 
