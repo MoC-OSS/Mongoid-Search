@@ -29,13 +29,14 @@ module Mongoid::Search::Util
     end
   end
 
-  def self.normalize_keywords(text,screening=nil)
+  def self.normalize_keywords(text,screening=false)
     ligatures     = Mongoid::Search.ligatures
     ignore_list   = Mongoid::Search.ignore_list
     stem_keywords = Mongoid::Search.stem_keywords
     stem_proc     = Mongoid::Search.stem_proc
 
     return [] if text.blank?
+    p screening
     if screening
       p "screening true"
       text = text.to_s.
