@@ -42,7 +42,7 @@ module Mongoid::Search::Util
         normalize(:kd).
         downcase.
         to_s.
-        gsub(/[._:;'"`,?|+={}()!@#%^&*<>~\$\-\\\/\[\]]/, /\\/.source+$1.to_s). # strip punctuation
+        gsub(/([._:;'"`,?|+={}()!@#%^&*<>~\$\-\\\/\[\]])/, /\\/.source+$1.to_s). # strip punctuation
         gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
         split(' ').
         reject { |word| word.size < Mongoid::Search.minimum_word_size }
