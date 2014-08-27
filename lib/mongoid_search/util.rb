@@ -36,14 +36,13 @@ module Mongoid::Search::Util
     stem_proc     = Mongoid::Search.stem_proc
 
     return [] if text.blank?
-    p screening
     if screening
-      p "screening true"
       text = text.to_s.
         mb_chars.
         normalize(:kd).
         downcase.
         to_s.
+        gsub(/[._:;'"`,?|+={}()!@#%^&*<>~\$\-\\\/\[\]]/, /\\/.source+$1). # strip punctuation
         gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
         split(' ').
         reject { |word| word.size < Mongoid::Search.minimum_word_size }
@@ -51,7 +50,6 @@ module Mongoid::Search::Util
       text = text.map(&stem_proc) if stem_keywords
       text
     else
-      p "screening false"
       text = text.to_s.
         mb_chars.
         normalize(:kd).

@@ -95,6 +95,20 @@ match:
     Product.full_text_search("apple motorola", match: :all).size
     => 0
 
+
+screening:
+
+  _true_ - screening query
+  _false_ - not screening query
+
+  Default is _false_.
+
+    Product.full_text_search("c#", screening: true).size
+    => 1
+
+    Product.full_text_search("c#", screening: false).size
+    => 8    
+
 allow\_empty\_search:
 
   _true_ - will return Model.all
