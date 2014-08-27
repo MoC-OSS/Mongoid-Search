@@ -25,7 +25,7 @@ module Mongoid::Search::Util
                 value = klass[fields];
               end
       value = value.join(' ') if value.respond_to?(:join)
-      normalize_keywords(value,screening=true) if value
+      normalize_keywords(value,screening="keywords") if value
     end
   end
 
@@ -36,7 +36,7 @@ module Mongoid::Search::Util
     stem_proc     = Mongoid::Search.stem_proc
 
     return [] if text.blank?
-    if screening
+    if screening==true
       text = text.to_s.
         mb_chars.
         normalize(:kd).
@@ -46,10 +46,17 @@ module Mongoid::Search::Util
         gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
         split(' ').
         reject { |word| word.size < Mongoid::Search.minimum_word_size }
-      text = text.reject { |word| ignore_list.include?(word) } unless ignore_list.blank?
-      text = text.map(&stem_proc) if stem_keywords
-      text
-    else
+    
+    elsif screening=="keywords"
+      text = text.to_s.
+        mb_chars.
+        normalize(:kd).
+        downcase.
+        to_s.
+        gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
+        split(' ').
+        reject { |word| word.size < Mongoid::Search.minimum_word_size }
+     else
       text = text.to_s.
         mb_chars.
         normalize(:kd).
@@ -60,10 +67,10 @@ module Mongoid::Search::Util
         gsub(/[#{ligatures.keys.join("")}]/) {|c| ligatures[c]}.
         split(' ').
         reject { |word| word.size < Mongoid::Search.minimum_word_size }
+    end
       text = text.reject { |word| ignore_list.include?(word) } unless ignore_list.blank?
       text = text.map(&stem_proc) if stem_keywords
       text
-    end
   end
 
 end
