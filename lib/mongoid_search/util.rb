@@ -25,7 +25,7 @@ module Mongoid::Search::Util
                 value = klass[fields];
               end
       value = value.join(' ') if value.respond_to?(:join)
-      normalize_keywords(value) if value
+      normalize_keywords(value,screening=true) if value
     end
   end
 
